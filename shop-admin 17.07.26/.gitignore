@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+backups/*
+!.gitkeep
+.pytest_cache/
+.DS_Store
+shop-admin/
+домашний маг /

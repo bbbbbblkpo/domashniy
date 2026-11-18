@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: shifts
+      POSTGRES_USER: shifts
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shifts -d shifts"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://shifts:${POSTGRES_PASSWORD}@db:5432/shifts
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env}
+      APP_ENV: production
+      COOKIE_SECURE: "true"
+      TIMEZONE: ${TIMEZONE:-Asia/Almaty}
+    depends_on:
+      db: {condition: service_healthy}
+    expose: ["8000"]
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN in .env}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro", "caddy_data:/data", "caddy_config:/config"]
+    depends_on: [app]
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes: ["./backups:/backups"]
+    entrypoint: ["/bin/sh", "-c", "while true; do pg_dump -h db -U shifts shifts > /backups/shifts-$$(date +%F).sql; find /backups -type f -mtime +30 -delete; sleep 86400; done"]
+    depends_on: [db]
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

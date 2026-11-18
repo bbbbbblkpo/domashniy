@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      APP_ENV: development
+      DEMO_MODE: "true"
+      DEMO_DB_PATH: /tmp/smena-demo.sqlite3
+      COOKIE_SECURE: "false"
+      PORT: 10000
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in the demo env file}
+      DEMO_OWNER_PASSWORD: ${DEMO_OWNER_PASSWORD:?Set DEMO_OWNER_PASSWORD in the demo env file}
+      DEMO_ADMIN_PASSWORD: ${DEMO_ADMIN_PASSWORD:?Set DEMO_ADMIN_PASSWORD in the demo env file}
+      DEMO_EMPLOYEE_PASSWORD: ${DEMO_EMPLOYEE_PASSWORD:?Set DEMO_EMPLOYEE_PASSWORD in the demo env file}
+    ports:
+      - "127.0.0.1:18080:10000"

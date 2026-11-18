@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: smeny-private-demo
+    runtime: docker
+    plan: free
+    rootDir: "shop-admin 17.07.26"
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEMO_MODE
+        value: "true"
+      - key: DEMO_DB_PATH
+        value: /tmp/smena-demo.sqlite3
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: TIMEZONE
+        value: Asia/Almaty
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEMO_OWNER_PASSWORD
+        sync: false
+      - key: DEMO_ADMIN_PASSWORD
+        sync: false
+      - key: DEMO_EMPLOYEE_PASSWORD
+        sync: false
