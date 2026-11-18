@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2A4A74" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>Смена — учет магазина</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="demo-banner hidden" id="demoBanner" role="status">Демо-версия. Все данные вымышленные</div>
+  <div class="app-shell">
+    <aside class="sidebar hidden" id="sidebar">
+      <button class="sidebar-close" id="closeSidebar" type="button" aria-label="Закрыть боковое меню">×</button>
+      <a class="brand" href="#dashboard" aria-label="Смена — главная"><span class="brand-mark">С</span><span>смена<span class="brand-dot">.</span><small>УЧЕТ МАГАЗИНА</small></span></a>
+      <div class="shop-switch"><span class="shop-avatar">М</span><span><strong>Мой магазин</strong><small>Администратор</small></span><span class="chevron">⌄</span></div>
+      <button class="nav-label nav-group-toggle" id="navGroupToggle" type="button" aria-expanded="true" aria-controls="sideNav"><span>УПРАВЛЕНИЕ МАГАЗИНОМ</span><span class="nav-chevron" aria-hidden="true">⌄</span></button>
+      <nav class="side-nav" id="sideNav" aria-label="Основная навигация">
+        <button class="nav-item" data-view="schedule"><span class="nav-icon">▦</span>Смены</button>
+        <button class="nav-item" data-view="payroll"><span class="nav-icon">₸</span>Зарплата</button>
+        <button class="nav-item" data-view="debts"><span class="nav-icon">↗</span>Долги</button>
+        <button class="nav-item active" data-view="orders"><span class="nav-icon">▤</span>Заказы</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="profile"><div class="avatar">С</div><span><strong>Смены</strong><small>Вход выполнен</small></span><button class="profile-more" id="logoutBtn" aria-label="Выйти">Выйти</button></div></div></aside>
+    <main class="main-area">
+      <header class="topbar hidden"><button class="mobile-menu" id="mobileMenu" aria-label="Открыть меню">☰</button><div class="breadcrumb">Мой магазин <span>/</span> <strong id="crumb">Смены</strong></div><div class="top-actions"><div class="today-label" id="todayLabel"></div><div class="top-avatar">АД</div><button class="more-button" id="moreButton" aria-label="Дополнительное меню">•••</button><div class="more-menu" id="moreMenu"><button id="profileBtn">Профиль</button><button id="settingsBtn" data-owner-only>Настройки</button></div></div></header>
+      <div class="content" id="appContent"></div>
+    </main>
+  </div>
+  <nav class="mobile-tabs" aria-label="Разделы"><button data-view="schedule">Смены</button><button data-view="payroll">Зарплата</button><button data-view="debts">Долги</button><button data-view="orders">Заказы</button><button id="mobileProfile">Профиль</button></nav>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="modal" class="modal"><div class="modal-head"><div><div class="eyebrow" id="modalEyebrow">НОВАЯ ЗАПИСЬ</div><h2 id="modalTitle">Добавить</h2></div><button class="close-modal" id="closeModal" type="button" aria-label="Закрыть">×</button></div><div id="modalBody" class="modal-body"></div></dialog>
+  <script src="app.js?v=nav-close-20261118"></script>
+</body>
+</html>
